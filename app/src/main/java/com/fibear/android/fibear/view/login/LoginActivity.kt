@@ -1,12 +1,12 @@
-package com.fibear.android.fibear
+package com.fibear.android.fibear.view.login
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
+import com.fibear.android.fibear.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -22,11 +22,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun attemptLogin() {
         // Reset errors.
-        et_email.error = null
+        et_username.error = null
         et_password.error = null
 
         // Store values at the time of the login attempt.
-        val emailStr = et_email.text.toString()
+        val emailStr = et_username.text.toString()
         val passwordStr = et_password.text.toString()
 
         var cancel = false
@@ -41,12 +41,8 @@ class LoginActivity : AppCompatActivity() {
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(emailStr)) {
-            et_email.error = getString(R.string.error_field_required)
-            focusView = et_email
-            cancel = true
-        } else if (!isEmailValid(emailStr)) {
-            et_email.error = getString(R.string.error_invalid_email)
-            focusView = et_email
+            et_username.error = getString(R.string.error_field_required)
+            focusView = et_username
             cancel = true
         }
 
@@ -60,10 +56,6 @@ class LoginActivity : AppCompatActivity() {
     private fun showProgress(isShown: Boolean) {
         pb_login.visibility = if (isShown) View.VISIBLE else View.GONE
     }
-
-
-    private fun isEmailValid(email: String): Boolean
-            = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     companion object {
         fun getIntent(packageContext: Context) = Intent(packageContext, LoginActivity::class.java)

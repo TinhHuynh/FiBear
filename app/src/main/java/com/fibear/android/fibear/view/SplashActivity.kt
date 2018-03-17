@@ -1,8 +1,9 @@
-package com.fibear.android.fibear
+package com.fibear.android.fibear.view
 
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import com.fibear.android.fibear.view.login.LoginActivity
 
 
 class SplashActivity : AppCompatActivity() {
