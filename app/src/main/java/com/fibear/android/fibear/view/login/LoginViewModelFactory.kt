@@ -1,7 +1,8 @@
+package com.fibear.android.fibear.view.login
+
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.fibear.android.fibear.data.FiBearRepository
-import com.fibear.android.fibear.view.login.LoginViewModel
 
 class LoginViewModelFactory(private val mRepository: FiBearRepository) : ViewModelProvider.NewInstanceFactory() {
 

@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName
  * Created by TINH HUYNH on 3/17/2018.
  */
 data class LoginResult(
-        @SerializedName("token") val token: String,
-        @SerializedName("user") val user: User
+        @SerializedName("token") val token: String? = null,
+        @SerializedName("user") val user: User? = null,
+        @SerializedName("code") val code: Int? = null,
+        @SerializedName("error") val error: String? = null
 )

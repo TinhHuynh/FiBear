@@ -3,7 +3,11 @@ package com.fibear.android.fibear.view
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import com.fibear.android.fibear.Config
+import com.fibear.android.fibear.Session
 import com.fibear.android.fibear.view.login.LoginActivity
+import com.orhanobut.hawk.Hawk
+import org.jetbrains.anko.toast
 
 
 class SplashActivity : AppCompatActivity() {
@@ -12,7 +16,11 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         Handler().postDelayed({
-            goToLoginScreen()
+            if(!Hawk.contains(Config.PREF_TOKEN)){
+                goToLoginScreen()
+            }else{
+                Session.token = Hawk.get(Config.PREF_TOKEN)
+            }
         }, SPLASH_DISPLAY_LENGTH)
     }
 
