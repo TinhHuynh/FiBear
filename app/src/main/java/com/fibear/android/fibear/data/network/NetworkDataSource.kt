@@ -2,11 +2,9 @@ package com.fibear.android.fibear.data.network
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.nfc.Tag
 import android.util.Log
-import com.fibear.android.fibear.data.User
-import com.fibear.android.fibear.data.login.LoginResult
-import org.json.JSONArray
+import com.fibear.android.fibear.data.model.User
+import com.fibear.android.fibear.data.model.login.LoginResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,5 +57,9 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
                     }
                 })
         return pendingResult
+    }
+
+    fun fetchBearList(): LiveData<List<User>> {
+        return MutableLiveData<List<User>>()
     }
 }

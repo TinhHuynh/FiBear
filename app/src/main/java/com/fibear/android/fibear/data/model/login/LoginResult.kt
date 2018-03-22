@@ -1,6 +1,6 @@
-package com.fibear.android.fibear.data.login
+package com.fibear.android.fibear.data.model.login
 
-import com.fibear.android.fibear.data.User
+import com.fibear.android.fibear.data.model.User
 import com.google.gson.annotations.SerializedName
 
 /**

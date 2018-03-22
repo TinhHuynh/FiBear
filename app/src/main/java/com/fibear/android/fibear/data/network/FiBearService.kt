@@ -1,11 +1,9 @@
 package com.fibear.android.fibear.data.network
 
-import com.fibear.android.fibear.data.User
+import com.fibear.android.fibear.data.model.User
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
 
-import com.fibear.android.fibear.data.login.LoginResult
+import com.fibear.android.fibear.data.model.login.LoginResult
 import retrofit2.http.Body
 import retrofit2.http.POST
 

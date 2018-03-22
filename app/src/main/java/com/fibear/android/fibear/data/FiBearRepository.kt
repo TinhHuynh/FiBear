@@ -1,7 +1,8 @@
 package com.fibear.android.fibear.data
 
 import android.arch.lifecycle.LiveData
-import com.fibear.android.fibear.data.login.LoginResult
+import com.fibear.android.fibear.data.model.login.LoginResult
+import com.fibear.android.fibear.data.model.User
 import com.fibear.android.fibear.data.network.NetworkDataSource
 
 /**
@@ -25,5 +26,6 @@ class FiBearRepository private constructor(val mNetworkDataSource: NetworkDataSo
     }
 
     fun fetchLoginResult(loginUser: User): LiveData<LoginResult> = mNetworkDataSource.fetchLoginResult(loginUser)
+    fun fetchBearList(): LiveData<List<User>> = mNetworkDataSource.fetchBearList()
 
 }

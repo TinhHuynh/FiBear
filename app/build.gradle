@@ -45,5 +45,8 @@ dependencies {
 
     compile "org.jetbrains.anko:anko-common:0.8.3"
     compile 'com.orhanobut:hawk:2.0.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 
 }

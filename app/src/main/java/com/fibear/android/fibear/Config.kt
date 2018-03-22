@@ -5,6 +5,7 @@ package com.fibear.android.fibear
  */
 class Config {
     companion object {
-        val PREF_TOKEN = "token"
+        const val PREF_TOKEN = "token"
+        const val PREF_USER = "user"
     }
 }

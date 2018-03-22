@@ -10,18 +10,25 @@ import android.text.TextUtils
 import android.view.View
 import com.fibear.android.fibear.Config
 import com.fibear.android.fibear.R
-import com.fibear.android.fibear.Session
-import com.fibear.android.fibear.data.User
-import com.fibear.android.fibear.data.login.LoginResult
+import com.fibear.android.fibear.SessionAttrs
+import com.fibear.android.fibear.data.model.User
+import com.fibear.android.fibear.data.model.login.LoginResult
 import com.fibear.android.fibear.utils.InjectionUtils
+import com.fibear.android.fibear.view.main.MainActivity
+import com.google.gson.Gson
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
+import org.json.JSONObject
 
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mViewModel: LoginViewModel
+
+    companion object {
+        fun getIntent(packageContext: Context) = Intent(packageContext, LoginActivity::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,20 +75,21 @@ class LoginActivity : AppCompatActivity() {
             focusView?.requestFocus()
         } else {
             showProgress(true)
+
             val loginUser = User(
-                    null,
-                    et_username.text.toString(),
-                    et_password.text.toString(),
-                    null)
+                    username = et_username.text.toString(),
+                    password = et_password.text.toString())
 
             mViewModel.fetchLoginResult(loginUser).observe(this,
                     Observer<LoginResult> { result: LoginResult? ->
                         with(result) {
                             if (this?.user != null && this.token != null) {
-                                Session.currentUser = user
-                                Session.token = token
+                                SessionAttrs.currentUser = user
+                                SessionAttrs.token = token
                                 saveTokenToPreferences(token)
-                                toast("Welcome ${user.profile?.get(0)?.firstname}")
+                                saveUserToPreferences(user)
+                                toast("Welcome ${user.profile?.firstname}")
+                                goToMainScreen()
                             } else {
                                 toast(if (this?.error != null) error else "Invalid username or password")
                             }
@@ -91,16 +99,27 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToMainScreen() {
+        val intent = MainActivity.getIntent(this)
+        startActivity(intent)
+        finish()
+    }
+
+
     private fun saveTokenToPreferences(token: String) {
         Hawk.put(Config.PREF_TOKEN, token)
     }
+
+    private fun saveUserToPreferences(user: User) {
+        val jsonUser = Gson().toJson(user)
+        Hawk.put(Config.PREF_USER, jsonUser)
+    }
+
 
 
     private fun showProgress(isShown: Boolean) {
         pb_login.visibility = if (isShown) View.VISIBLE else View.GONE
     }
 
-    companion object {
-        fun getIntent(packageContext: Context) = Intent(packageContext, LoginActivity::class.java)
-    }
+
 }
