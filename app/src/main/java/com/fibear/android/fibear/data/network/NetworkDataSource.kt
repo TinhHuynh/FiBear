@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.fibear.android.fibear.data.model.User
+import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
 import com.fibear.android.fibear.data.model.login.LoginResult
 import retrofit2.Call
@@ -69,6 +70,26 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
                     }
 
                     override fun onResponse(call: Call<BearListResult>, response: Response<BearListResult>) {
+                        with(response) {
+                            call.request().url()
+                            if (isSuccessful) {
+                                pendingResult.postValue(response.body())
+                            }
+                        }
+                    }
+                })
+        return pendingResult
+    }
+
+    fun fetchBearDetail(token: String, bearId: Int): LiveData<BearDetailResult> {
+        val pendingResult = MutableLiveData<BearDetailResult>()
+        mFiBearApiClient.fetchBearDetail(token, bearId)
+                .enqueue(object : Callback<BearDetailResult> {
+                    override fun onFailure(call: Call<BearDetailResult>, t: Throwable?) {
+                        Log.e(TAG, t?.message)
+                    }
+
+                    override fun onResponse(call: Call<BearDetailResult>, response: Response<BearDetailResult>) {
                         with(response) {
                             call.request().url()
                             if (isSuccessful) {

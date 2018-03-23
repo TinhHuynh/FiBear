@@ -18,7 +18,7 @@ import com.fibear.android.fibear.R
 import com.fibear.android.fibear.SessionAttrs
 import com.fibear.android.fibear.data.model.User
 import com.fibear.android.fibear.utils.InjectionUtils
-import com.fibear.android.fibear.view.bear_detail.BearDetailActivity
+import com.fibear.android.fibear.view.bearDetail.BearDetailActivity
 import com.fibear.android.fibear.view.SpaceItemdDecorator
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView

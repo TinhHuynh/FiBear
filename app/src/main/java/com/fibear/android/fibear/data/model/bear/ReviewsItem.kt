@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class ReviewsItem(
 
 	@SerializedName("rate")
-	val rate: String? = null,
+	val rate: Double? = null,
 
 	@SerializedName("description")
 	val description: String? = null,

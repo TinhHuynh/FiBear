@@ -1,85 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/layout_item_bear"
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_item_bear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_light_white"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/white_card_view_background"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:elevation="@dimen/cardview_default_elevation"
+    app:cardCornerRadius="@dimen/cardview_default_radius">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/white_card_view_background"
-        android:elevation="@dimen/cardview_default_elevation"
-        app:cardCornerRadius="@dimen/material_component_button_corner_radius">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/image_avatar"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/test_girl_avatar"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:gravity="center_vertical"
-                    android:layout_margin="@dimen/material_layout_keylines_screen_edge_margin">
-                    <TextView
-                        android:id="@+id/txt_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="2dp"
-                        android:textSize="@dimen/material_component_lists_single_line_text_size"
-                        android:textColor="@color/material_yellow_500"
-                        android:textStyle="bold"
-                        tools:text="4.2/5"/>
+            android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="@dimen/material_component_lists_single_line_text_size"
-                        android:layout_height="@dimen/material_component_lists_single_line_text_size"
-                        android:src="@drawable/ic_rating_star"/>
-                </LinearLayout>
-            </FrameLayout>
+            <ImageView
+                android:id="@+id/image_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:alpha="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_girl_avatar"
+                android:tint="#6F000000"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
+                android:layout_gravity="bottom|right"
+                android:layout_margin="@dimen/material_layout_keylines_screen_edge_margin"
+                android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/txt_name_age"
+                    android:id="@+id/txt_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="4dp"
-                    android:textSize="@dimen/material_component_lists_two_line_text_size"
+                    android:paddingRight="2dp"
+                    android:textColor="@color/material_yellow_500"
+                    android:textSize="@dimen/material_component_lists_single_line_text_size"
                     android:textStyle="bold"
-                    tools:text="Sahara Kobain, 28"
-                    />
+                    tools:text="4.2/5"/>
 
-                <TextView
-                    android:id="@+id/txt_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="3"
-                    android:textSize="@dimen/material_component_lists_two_line_secondary_text_size"
-                    tools:text="Hi, I'm sure you know my name :). I love rock music and game. How about girl stuff ?? Well, I like cooking a quite. "/>
+                <ImageView
+                    android:layout_width="@dimen/material_component_lists_single_line_text_size"
+                    android:layout_height="@dimen/material_component_lists_single_line_text_size"
+                    android:src="@drawable/ic_rating_star"/>
             </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_name_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:textSize="@dimen/material_component_lists_two_line_text_size"
+                android:textStyle="bold"
+                tools:text="Sahara Kobain, 28"
+                />
+
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textSize="@dimen/material_component_lists_two_line_secondary_text_size"
+                tools:text="Hi, I'm sure you know my name :). I love rock music and game. How about girl stuff ?? Well, I like cooking a quite. "/>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
 
 
-</LinearLayout>

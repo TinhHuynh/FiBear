@@ -33,7 +33,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".view.bear_detail.BearDetailActivity"
+            android:name=".view.bearDetail.BearDetailActivity"
             android:label="@string/title_activity_bear_detail"
             android:parentActivityName=".view.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar.BearDetail">

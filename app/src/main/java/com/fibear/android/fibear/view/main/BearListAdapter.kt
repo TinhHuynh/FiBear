@@ -2,6 +2,7 @@ package com.fibear.android.fibear.view.main
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,7 @@ class BearListAdapter(private val context: Context, var bearList: List<User>, pr
         private lateinit var txtNameAge: TextView
         private lateinit var txtDescription: TextView
         private lateinit var txtRating: TextView
-        private lateinit var layout: LinearLayout
+        private lateinit var layout: CardView
 
         init {
             with(itemView) {
