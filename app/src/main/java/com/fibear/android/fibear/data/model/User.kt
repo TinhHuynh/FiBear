@@ -1,5 +1,6 @@
 package com.fibear.android.fibear.data.model
 
+import com.fibear.android.fibear.utils.DateUtils
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -13,6 +14,17 @@ data class User(
         @SerializedName("roleId") val roleId: Int? = null,
         @SerializedName("profile") val profile: Profile? = null
 ) : Serializable {
+
+    fun rating(): String = "${profile?.starRate}/5"
+
+    fun title(): String {
+        val dateValues = profile?.birthdate?.split("-")
+        val age = DateUtils.calculateAge(dateValues?.get(0)?.toInt()!!,
+                dateValues[1].toInt(),
+                dateValues[2].toInt())
+
+        return "${fullname()}, $age"
+    }
 
     fun fullname(): String = "${profile?.firstname} ${profile?.lastname}"
 

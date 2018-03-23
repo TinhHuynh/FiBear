@@ -15,6 +15,9 @@
     <string name="title_sign_in">Sign in</string>
     <string name="error_invalid_email">Email format is not correct</string>
     <string name="error_field_required">This field is required</string>
+    <string name="title_activity_bear_detail">BearDetailActivity</string>
+    <string name="large_text">Hi, My name is Kathara</string>
+    <string name="text_about_bear">About bear</string>
 
 
 </resources>

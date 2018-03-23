@@ -13,6 +13,7 @@ data class Profile(
         @SerializedName("lastname") val lastname: String? = null,
         @SerializedName("birthdate") val birthdate: String? = null,
         @SerializedName("sex") val sex: Int? = null,
+        @SerializedName("starRate") val starRate: Double? = null,
         @SerializedName("description") val description: String? = null
 ) : Serializable {
 

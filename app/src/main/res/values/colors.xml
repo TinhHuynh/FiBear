@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">@color/material_blue_700</color>
     <color name="colorPrimaryLight">@color/material_blue_300</color>
     <color name="colorAccent">#F5453A</color>
+
 </resources>

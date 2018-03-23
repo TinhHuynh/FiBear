@@ -5,6 +5,7 @@ import com.fibear.android.fibear.data.network.FiBearApiClient
 import com.fibear.android.fibear.data.network.FiBearService
 import com.fibear.android.fibear.data.network.NetworkDataSource
 import com.fibear.android.fibear.view.login.LoginViewModelFactory
+import com.fibear.android.fibear.view.main.MainViewModelFactory
 
 /**
  * Created by TINH HUYNH on 3/17/2018.
@@ -19,5 +20,7 @@ class InjectionUtils {
         fun provideNetworkDataSource(): NetworkDataSource = NetworkDataSource.getInstance(provideFiBearApiClient())
 
         fun provideLoginViewModelFactory(): LoginViewModelFactory = LoginViewModelFactory(provideFibearReposiory())
+
+        fun provideMainViewModelFactory(): MainViewModelFactory = MainViewModelFactory(provideFibearReposiory())
     }
 }
