@@ -6,6 +6,8 @@ import android.util.Log
 import com.fibear.android.fibear.data.model.User
 import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
+import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
+import com.fibear.android.fibear.data.model.bear.block.BlockStatus
 import com.fibear.android.fibear.data.model.login.LoginResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -100,4 +102,30 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
                 })
         return pendingResult
     }
+
+    fun fetchBearBlocksByDate(token: String, bearId: Int, date: Long, userId: Int): LiveData<BearBlocksResult> {
+        val pendingResult = MutableLiveData<BearBlocksResult>()
+        mFiBearApiClient.fetchBearBlockByTime(token, bearId, date, userId)
+                .enqueue(object : Callback<BearBlocksResult> {
+                    override fun onFailure(call: Call<BearBlocksResult>, t: Throwable?) {
+                        Log.e(TAG, t?.message)
+                    }
+
+                    override fun onResponse(call: Call<BearBlocksResult>, response: Response<BearBlocksResult>) {
+                        with(response) {
+                            call.request().url()
+                            if (isSuccessful) {
+                                response.body()?.userBlockDates
+                                        ?.filter {
+                                            it?.status == BlockStatus.FREE.name
+                                        }
+                                        ?.reversed()
+                                pendingResult.postValue(response.body())
+                            }
+                        }
+                    }
+                })
+        return pendingResult
+    }
 }
+

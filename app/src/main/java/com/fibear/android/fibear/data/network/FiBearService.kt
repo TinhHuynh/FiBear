@@ -1,6 +1,7 @@
 package com.fibear.android.fibear.data.network
 
 import com.fibear.android.fibear.data.model.User
+import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
 import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
 import retrofit2.Call
@@ -23,6 +24,13 @@ interface FiBearService {
     @GET("v1/bear/bears/{bear_id}")
     fun fetchBearDetail(@Header("Authorization") token: String,
                         @Path("bear_id") bearId: Int): Call<BearDetailResult>
+
+    @GET("v1/bear/blocks/{bear_id}")
+    fun fetchBearBlockByTime(@Header("Authorization") token: String,
+                             @Path("bear_id") bearId: Int,
+                             @Query("date") date: Long,
+                             @Query("userId") user: Int): Call<BearBlocksResult>
+
 }
 
 

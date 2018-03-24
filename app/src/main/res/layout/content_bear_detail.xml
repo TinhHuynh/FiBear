@@ -9,39 +9,77 @@
     tools:context="com.fibear.android.fibear.view.bearDetail.BearDetailActivity"
     tools:showIn="@layout/activity_bear_detail">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            android:elevation="@dimen/cardview_default_elevation">
-            <TextView
-                android:id="@+id/txt_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:text="@string/large_text"
-                android:textColor="@color/material_light_white"
-                android:textSize="18sp"/>
-        </LinearLayout>
+            android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/cardview_light_background"
-            android:layout_margin="@dimen/material_layout_keylines_screen_edge_margin"
-            app:elevation="@dimen/cardview_default_elevation"
-            app:cardCornerRadius="@dimen/cardview_default_radius">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_reviews"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_review"/>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+                android:background="@color/colorPrimary"
+                android:elevation="@dimen/cardview_default_elevation"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@string/large_text"
+                    android:textColor="@color/material_light_white"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/material_layout_keylines_screen_edge_margin"
+                android:background="@color/cardview_light_background"
+                android:visibility="gone"
+                app:cardCornerRadius="@dimen/cardview_default_radius"
+                app:elevation="@dimen/cardview_default_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/material_layout_keylines_screen_edge_margin"
+                        android:layout_marginRight="@dimen/material_layout_keylines_screen_edge_margin"
+                        android:layout_marginTop="@dimen/material_layout_keylines_screen_edge_margin"
+                        android:text="@string/text_reviews"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_reviews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_review"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_reviews"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
+    </FrameLayout>
 
 </android.support.v4.widget.NestedScrollView>

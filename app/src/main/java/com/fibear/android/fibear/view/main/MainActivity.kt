@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import com.fibear.android.fibear.R
 import com.fibear.android.fibear.SessionAttrs
@@ -88,7 +89,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBearClicked(bear: User) {
-
         startActivity(BearDetailActivity.getIntent(this, bear))
     }
 
@@ -145,9 +145,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun fetchListBear() {
+        pb_bear_list.visibility = View.VISIBLE
         mViewModel.fetchBearList(SessionAttrs.token)
                 .observe(this, Observer {
                     handleBearList(it?.users)
+                    pb_bear_list.visibility = View.GONE
                 })
     }
 

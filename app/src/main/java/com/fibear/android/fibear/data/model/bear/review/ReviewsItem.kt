@@ -1,6 +1,5 @@
-package com.fibear.android.fibear.data.model.bear
+package com.fibear.android.fibear.data.model.bear.review
 
-import com.fibear.android.fibear.data.model.bear.detail.UserReviewed
 import com.google.gson.annotations.SerializedName
 
 data class ReviewsItem(

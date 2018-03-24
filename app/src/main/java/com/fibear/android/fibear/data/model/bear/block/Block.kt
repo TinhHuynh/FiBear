@@ -1,4 +1,4 @@
-package com.fibear.android.fibear.data.model.bear
+package com.fibear.android.fibear.data.model.bear.block
 
 import com.google.gson.annotations.SerializedName
 

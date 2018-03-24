@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import com.fibear.android.fibear.R
-import com.fibear.android.fibear.data.model.bear.ReviewsItem
+import com.fibear.android.fibear.data.model.bear.review.ReviewsItem
 import org.jetbrains.anko.find
 
 /**

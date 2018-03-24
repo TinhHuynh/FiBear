@@ -5,23 +5,23 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.fibear.android.fibear.R
 import com.fibear.android.fibear.SessionAttrs
 import com.fibear.android.fibear.data.model.User
-import com.fibear.android.fibear.data.model.bear.ReviewsItem
+import com.fibear.android.fibear.data.model.bear.review.ReviewsItem
 import com.fibear.android.fibear.utils.InjectionUtils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_bear_detail.*
 import kotlinx.android.synthetic.main.content_bear_detail.*
-import kotlinx.android.synthetic.main.content_main.*
-import android.support.v7.widget.DividerItemDecoration
+import org.joda.time.LocalDate
 
 
-
-
-class BearDetailActivity : AppCompatActivity() {
+class BearDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mBear: User
     private lateinit var mViewModel: BearDetailViewModel
@@ -41,11 +41,20 @@ class BearDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bear_detail)
         mBear = intent.getSerializableExtra(ARG_BEAR) as User
 
+        fab_order_bear.setOnClickListener(this)
+
         initViewModel()
         initSupportActionBar()
         initRecyclerView()
         bindBearBasicInfo()
         fetchBearDetail()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.fab_order_bear ->
+                fetchBearBlocksToday()
+        }
     }
 
     private fun initViewModel() {
@@ -59,7 +68,7 @@ class BearDetailActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        with(rv_reviews){
+        with(rv_reviews) {
             layoutManager = LinearLayoutManager(this@BearDetailActivity)
 
             layoutManager as LinearLayoutManager
@@ -86,19 +95,37 @@ class BearDetailActivity : AppCompatActivity() {
     }
 
     private fun fetchBearDetail() {
+        pb_reviews.visibility = View.VISIBLE
         mViewModel.fetchBearDetail(SessionAttrs.token, mBear.id!!)
                 .observe(this, Observer { result ->
                     with(result) {
                         mBear = this?.bear!!
                         reviews?.let {
+                            card_review.visibility = View.VISIBLE
                             handleReviewList(reviews)
+
                         }
+                        if (reviews == null) {
+                            Snackbar.make(layout_bear_detail, "This bear hasn't had any review yet"
+                                    , Snackbar.LENGTH_SHORT).show()
+                        }
+                        pb_reviews.visibility = View.GONE
                     }
                 })
     }
 
     private fun handleReviewList(reviews: List<ReviewsItem?>?) {
         rv_reviews.adapter = BearReviewAdapter(this, reviews as List<ReviewsItem>)
+    }
+
+    private fun fetchBearBlocksToday() {
+        val today = LocalDate().toDate().time
+        mViewModel.fetchBearBlocksByDate(SessionAttrs.token, mBear.id!!, today,
+                SessionAttrs.currentUser.id!!)
+                .observe(this, Observer {result ->
+                    print(result)
+                })
+
     }
 
 }
