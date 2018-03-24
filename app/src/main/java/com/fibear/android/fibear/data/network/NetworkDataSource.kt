@@ -3,12 +3,15 @@ package com.fibear.android.fibear.data.network
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
+import com.fibear.android.fibear.data.model.ApiPostResponse
 import com.fibear.android.fibear.data.model.User
 import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
 import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
 import com.fibear.android.fibear.data.model.bear.block.BlockStatus
 import com.fibear.android.fibear.data.model.login.LoginResult
+import com.fibear.android.fibear.data.model.order.OrderRequestBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -113,10 +116,26 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
 
                     override fun onResponse(call: Call<BearBlocksResult>, response: Response<BearBlocksResult>) {
                         with(response) {
-                            call.request().url()
                             if (isSuccessful) {
                                 pendingResult.postValue(response.body())
                             }
+                        }
+                    }
+                })
+        return pendingResult
+    }
+
+    fun orderBlock(token: String, requestBody: OrderRequestBody): LiveData<ApiPostResponse> {
+        val pendingResult = MutableLiveData<ApiPostResponse>()
+        mFiBearApiClient.orderBlock(token, requestBody)
+                .enqueue(object : Callback<ApiPostResponse> {
+                    override fun onFailure(call: Call<ApiPostResponse>, t: Throwable?) {
+                        Log.e(TAG, t?.message)
+                    }
+
+                    override fun onResponse(call: Call<ApiPostResponse>, response: Response<ApiPostResponse>) {
+                        with(response) {
+                            pendingResult.postValue(response.body())
                         }
                     }
                 })

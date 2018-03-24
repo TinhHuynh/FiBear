@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/material_light_white"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@drawable/white_card_view_background"
     android:orientation="vertical"
     android:paddingTop="@dimen/material_layout_keylines_screen_edge_margin"
     android:paddingBottom="@dimen/material_layout_keylines_screen_edge_margin">

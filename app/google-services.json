@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "197822998725",
+    "firebase_url": "https://fibear-ebe20.firebaseio.com",
+    "project_id": "fibear-ebe20",
+    "storage_bucket": "fibear-ebe20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197822998725:android:6ba525730935e3f7",
+        "android_client_info": {
+          "package_name": "com.practical.practicalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197822998725-eo47dg3gag9od5vc96ch6mqdtoccante.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMhBSiULjmYe76P_AVuwm3lZW33YGkFK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197822998725:android:21070104a0f60b20",
+        "android_client_info": {
+          "package_name": "com.fibear.android.fibear"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197822998725-eo47dg3gag9od5vc96ch6mqdtoccante.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMhBSiULjmYe76P_AVuwm3lZW33YGkFK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

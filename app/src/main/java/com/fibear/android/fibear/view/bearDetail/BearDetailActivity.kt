@@ -3,6 +3,7 @@ package com.fibear.android.fibear.view.bearDetail
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -20,12 +21,14 @@ import com.fibear.android.fibear.data.model.User
 import com.fibear.android.fibear.data.model.bear.block.BlockStatus
 import com.fibear.android.fibear.data.model.bear.block.UserBlockDatesItem
 import com.fibear.android.fibear.data.model.bear.review.ReviewsItem
+import com.fibear.android.fibear.data.model.order.OrderRequestBody
 import com.fibear.android.fibear.utils.DateUtils
 import com.fibear.android.fibear.utils.InjectionUtils
 import com.fibear.android.fibear.view.bearDetail.adapters.BearBlockAdapter
 import com.fibear.android.fibear.view.bearDetail.adapters.BearReviewAdapter
 import com.fibear.android.fibear.view.bearDetail.adapters.OnBlockClickedListener
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Request
 import kotlinx.android.synthetic.main.activity_bear_detail.*
 import kotlinx.android.synthetic.main.content_bear_detail.*
 import org.jetbrains.anko.find
@@ -36,6 +39,7 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
 
     private lateinit var mBear: User
     private lateinit var mViewModel: BearDetailViewModel
+    private lateinit var mBlockDialog: AlertDialog
 
     companion object {
         const val ARG_BEAR = "ARG_BEAR"
@@ -63,13 +67,51 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.fab_order_bear ->
+            R.id.fab_order_bear ->{
                 fetchBearBlocksToday()
+            }
+
         }
     }
 
     override fun onBlockClicked(block: UserBlockDatesItem) {
-        toast(block.title())
+        //TODO: replace this with fucking real block id
+        showConfirmDialog(7)
+        mBlockDialog.dismiss()
+    }
+
+    private fun showConfirmDialog(blockId: Int) {
+        AlertDialog.Builder(this)
+                .setTitle("Confirm dialog")
+                .setMessage("Are you sure to hire this Bear ? Please take a deep breathe before deciding :)")
+                .setPositiveButton("Yes, I'm sure", { dialog, _ ->
+                    orderBlock(blockId)
+                    dialog.dismiss()
+                })
+                .setNegativeButton("No, take me out", null)
+                .show()
+    }
+
+    private fun orderBlock(blockId: Int) {
+        mViewModel.orderBlock(SessionAttrs.token, OrderRequestBody(blockId, SessionAttrs.currentUser.id!!))
+                .observe(this, Observer {
+                    with(it) {
+                        if (it!!.isSuccessful()) {
+                            this@BearDetailActivity.showOrderResultDialog(it.isSuccessful())
+                        }
+                    }
+                })
+    }
+
+    private fun showOrderResultDialog(successful: Boolean) {
+        val dialog = AlertDialog.Builder(this)
+        if (successful) {
+            dialog.setMessage("Order is placed successfully. All what you need to do is waiting a " +
+                    "response from the Bear. Please be patient")
+        } else {
+            dialog.setMessage("You have already ordered this Bear")
+        }
+        dialog.setPositiveButton(android.R.string.ok, null).show()
     }
 
     private fun initViewModel() {
@@ -139,10 +181,12 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
                 SessionAttrs.currentUser.id!!)
                 .observe(this, Observer { result ->
                     result?.userBlockDates?.let { it ->
-                        list = it.filter {
-                            it?.status == BlockStatus.FREE.name
-                        }.reversed().toList() as List<UserBlockDatesItem>
-
+                        list = it
+                                .filter {
+                                    it?.status == BlockStatus.FREE.name
+                                }
+                                .sortedWith(compareBy({ it?.block?.hourStart }))
+                                .toList() as List<UserBlockDatesItem>
                     }
                     showBlocksDialog(list)
                 })
@@ -153,7 +197,7 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
         if (userBlockDates != null) {
             setUpBlockRecyclerView(view, userBlockDates)
         }
-        AlertDialog.Builder(this)
+        mBlockDialog = AlertDialog.Builder(this)
                 .setView(view)
                 .show()
     }
