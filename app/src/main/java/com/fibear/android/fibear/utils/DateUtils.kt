@@ -2,7 +2,7 @@ package com.fibear.android.fibear.utils
 
 import org.joda.time.LocalDate
 import org.joda.time.Years
-
+import java.util.*
 
 
 /**
@@ -10,10 +10,12 @@ import org.joda.time.Years
  */
 class DateUtils {
     companion object {
-        fun calculateAge(year: Int, month: Int, day: Int): Int{
+        fun calculateAge(year: Int, month: Int, day: Int): Int {
             val birthdate = LocalDate(year, month, day)
             val now = LocalDate()
             return Years.yearsBetween(birthdate, now).years
         }
+
+        fun todayInMillisecs() = LocalDate().toDate().time / 1000
     }
 }

@@ -25,6 +25,7 @@
     <!-- Block dialog -->
     <string name="txt_no_free_block">Unfortunately, this Bear seems to be busy today</string>
     <string name="title_dialog_block">Today Bear\'s free time block</string>
+    <string name="text_bear_note">Bear notes:</string>
 
 
 </resources>

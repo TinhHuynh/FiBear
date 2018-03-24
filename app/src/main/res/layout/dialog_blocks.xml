@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_margin="@dimen/material_layout_keylines_screen_edge_margin"
               android:background="@color/material_light_white"
               android:orientation="vertical"
               android:padding="@dimen/material_component_dialogs_padding_around_content_area">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/material_component_dialogs_padding_between_title_and_body_text"
         android:text="@string/title_dialog_block"
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/txt_no_block"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_no_free_block"
@@ -29,7 +31,8 @@
             android:id="@+id/rv_blocks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="visible"
+            tools:listitem="@layout/item_block"/>
     </FrameLayout>
 
 

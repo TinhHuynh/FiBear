@@ -115,11 +115,6 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
                         with(response) {
                             call.request().url()
                             if (isSuccessful) {
-                                response.body()?.userBlockDates
-                                        ?.filter {
-                                            it?.status == BlockStatus.FREE.name
-                                        }
-                                        ?.reversed()
                                 pendingResult.postValue(response.body())
                             }
                         }

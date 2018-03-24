@@ -1,4 +1,4 @@
-package com.fibear.android.fibear.view.bearDetail
+package com.fibear.android.fibear.view.bearDetail.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -17,7 +17,7 @@ import org.jetbrains.anko.find
 class BearReviewAdapter(private val context: Context, private val reviewList: List<ReviewsItem>) : RecyclerView.Adapter<BearReviewAdapter.BearReviewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BearReviewViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_review, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_review, parent, false)
         return BearReviewViewHolder(view)
     }
 
