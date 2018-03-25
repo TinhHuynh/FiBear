@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class UserBlockDate(
         @SerializedName("id") val id: Int? = null,
-        @SerializedName("blockDate") val blockDate: String? = null,
-        @SerializedName("price") val price: Int? = null,
-        @SerializedName("description") val description: String? = null,
+        @SerializedName("blockDate") var blockDate: String? = null,
+        @SerializedName("price") var price: Int? = null,
+        @SerializedName("description") var description: String? = null,
         @SerializedName("block") val block: Block? = null,
-        @SerializedName("status") val status: String? = null
+        @SerializedName("status") var status: String? = null
 ) {
     fun title(): String = "${block?.title()}"
 }

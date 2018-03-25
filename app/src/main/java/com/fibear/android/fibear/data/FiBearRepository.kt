@@ -8,6 +8,7 @@ import com.fibear.android.fibear.data.model.bear.registerBlock.RegisterBlocksRes
 import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
 import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
+import com.fibear.android.fibear.data.model.bear.registerBlock.RequestBody
 import com.fibear.android.fibear.data.model.order.OrderRequestBody
 import com.fibear.android.fibear.data.network.NetworkDataSource
 
@@ -40,5 +41,7 @@ class FiBearRepository private constructor(private val mNetworkDataSource: Netwo
             = mNetworkDataSource.fetchRegisterBlocksByDate(token, bearId, date)
     fun orderToken(token: String, requestBody: OrderRequestBody): LiveData<ApiPostResponse>
             = mNetworkDataSource.orderBlock(token, requestBody)
+    fun registerBlocks(token: String, requestBody: RequestBody): LiveData<ApiPostResponse>
+            = mNetworkDataSource.registerBlocks(token, requestBody)
 
 }

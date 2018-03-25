@@ -7,5 +7,6 @@ class Config {
     companion object {
         const val PREF_TOKEN = "token"
         const val PREF_USER = "user"
+        const val DATE_FORMAT = "yyyy-MM-dd"
     }
 }

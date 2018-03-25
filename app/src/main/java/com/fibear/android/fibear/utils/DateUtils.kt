@@ -2,6 +2,7 @@ package com.fibear.android.fibear.utils
 
 import org.joda.time.LocalDate
 import org.joda.time.Years
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -17,5 +18,10 @@ class DateUtils {
         }
 
         fun todayInMillisecs() = LocalDate().toDate().time / 1000
+
+        fun todayInString(formatStr: String): String {
+            val format = SimpleDateFormat(formatStr, Locale.getDefault())
+            return format.format(LocalDate().toDate())
+        }
     }
 }

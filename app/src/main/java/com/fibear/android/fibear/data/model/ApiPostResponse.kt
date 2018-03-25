@@ -5,5 +5,5 @@ data class ApiPostResponse(
         private val error: String? = null,
         private val status: String? = null
 ){
-    fun isSuccessful():Boolean = message != null
+    fun isSuccessful():Boolean = message != null || status == "success"
 }

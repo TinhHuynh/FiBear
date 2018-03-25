@@ -64,7 +64,7 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.fab_order_bear ->{
+            R.id.fab_order_bear -> {
                 fetchBearBlocksToday()
             }
 
@@ -92,9 +92,7 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
         mViewModel.orderBlock(SessionAttrs.token, OrderRequestBody(blockId, SessionAttrs.currentUser.id!!))
                 .observe(this, Observer {
                     with(it) {
-                        if (it!!.isSuccessful()) {
-                            this@BearDetailActivity.showOrderResultDialog(it.isSuccessful())
-                        }
+                        this@BearDetailActivity.showOrderResultDialog(it!!.isSuccessful())
                     }
                 })
     }

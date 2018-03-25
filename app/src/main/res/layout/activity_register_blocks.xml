@@ -2,18 +2,18 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_light_white"
-
     android:orientation="vertical"
-    android:padding="@dimen/material_layout_keylines_screen_edge_margin"
     tools:context="com.fibear.android.fibear.view.forBear.registerBlocks.RegisterBlocksActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/material_layout_keylines_screen_edge_margin">
 
         <TextView
             android:layout_width="wrap_content"

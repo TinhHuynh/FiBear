@@ -9,6 +9,7 @@ import com.fibear.android.fibear.data.model.bear.registerBlock.RegisterBlocksRes
 import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
 import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
+import com.fibear.android.fibear.data.model.bear.registerBlock.RequestBody
 import com.fibear.android.fibear.data.model.login.LoginResult
 import com.fibear.android.fibear.data.model.order.OrderRequestBody
 import org.json.JSONObject
@@ -151,13 +152,44 @@ class NetworkDataSource(private val mFiBearApiClient: FiBearService) {
 
                     override fun onResponse(call: Call<ApiPostResponse>, response: Response<ApiPostResponse>) {
                         with(response) {
-                            pendingResult.postValue(response.body())
+                            if(response.isSuccessful)
+                                pendingResult.postValue(response.body())
+                            else{
+                                val respondBody = ApiPostResponse()
+                                pendingResult.postValue(respondBody)
+
+                            }
                         }
                     }
                 })
         return pendingResult
     }
 
+    fun registerBlocks(token: String, requestBody: RequestBody): LiveData<ApiPostResponse> {
+        val pendingResult = MutableLiveData<ApiPostResponse>()
+        mFiBearApiClient.registerBlocks(token, requestBody)
+                .enqueue(object : Callback<ApiPostResponse> {
+                    override fun onFailure(call: Call<ApiPostResponse>, t: Throwable?) {
+                        Log.e(TAG, t?.message)
+                    }
+
+                    override fun onResponse(call: Call<ApiPostResponse>, response: Response<ApiPostResponse>) {
+                        with(response) {
+                            if(response.isSuccessful)
+                                pendingResult.postValue(response.body())
+                            else{
+                                val respondBody = ApiPostResponse()
+                                pendingResult.postValue(respondBody)
+                                print(response.errorBody())
+                                val jError = JSONObject(errorBody()?.string())
+                                val error = jError.getString("error")
+                                print(error)
+                            }
+                        }
+                    }
+                })
+        return pendingResult
+    }
 
 }
 

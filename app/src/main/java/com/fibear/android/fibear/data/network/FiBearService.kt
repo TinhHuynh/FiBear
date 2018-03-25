@@ -6,6 +6,7 @@ import com.fibear.android.fibear.data.model.bear.registerBlock.RegisterBlocksRes
 import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
 import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
+import com.fibear.android.fibear.data.model.bear.registerBlock.RequestBody
 import retrofit2.Call
 
 import com.fibear.android.fibear.data.model.login.LoginResult
@@ -42,6 +43,10 @@ interface FiBearService {
     fun fetchRegisterBlocksByDate(@Header("Authorization") token: String,
                                   @Path("bear_id") bearId: Int,
                                   @Query("date") date: Long): Call<RegisterBlocksResult>
+
+    @POST("v1/bear/blocks")
+    fun registerBlocks(@Header("Authorization") token: String,
+                   @Body requestBody: RequestBody): Call<ApiPostResponse>
 
     //order
     @POST("v1/order/block")
