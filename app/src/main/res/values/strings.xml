@@ -27,5 +27,15 @@
     <string name="title_dialog_block">Today Bear\'s free time block</string>
     <string name="text_bear_note">Bear notes:</string>
 
+    <!-- Nav view -->
+    <string name="title_register_menu">Register Blocks</string>
+    <string name="title_for_bear">For Bear</string>
+
+    <!-- Register block Activity -->
+    <string name="prompt_price">Price</string>
+    <string name="prompt_description">Description (optional)</string>
+    <string name="title_select_block">Today time blocks</string>
+    <string name="text_select_block">Select time blocks that you will be ready for earning money today</string>
+    <string name="action_register_block">Register blocks</string>
 
 </resources>

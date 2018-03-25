@@ -3,7 +3,6 @@ package com.fibear.android.fibear.view.bearDetail
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -19,8 +18,8 @@ import com.fibear.android.fibear.R
 import com.fibear.android.fibear.SessionAttrs
 import com.fibear.android.fibear.data.model.User
 import com.fibear.android.fibear.data.model.bear.block.BlockStatus
-import com.fibear.android.fibear.data.model.bear.block.UserBlockDatesItem
-import com.fibear.android.fibear.data.model.bear.review.ReviewsItem
+import com.fibear.android.fibear.data.model.UserBlockDate
+import com.fibear.android.fibear.data.model.bear.review.Review
 import com.fibear.android.fibear.data.model.order.OrderRequestBody
 import com.fibear.android.fibear.utils.DateUtils
 import com.fibear.android.fibear.utils.InjectionUtils
@@ -28,11 +27,9 @@ import com.fibear.android.fibear.view.bearDetail.adapters.BearBlockAdapter
 import com.fibear.android.fibear.view.bearDetail.adapters.BearReviewAdapter
 import com.fibear.android.fibear.view.bearDetail.adapters.OnBlockClickedListener
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Request
 import kotlinx.android.synthetic.main.activity_bear_detail.*
 import kotlinx.android.synthetic.main.content_bear_detail.*
 import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
 
 
 class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockClickedListener {
@@ -74,9 +71,8 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
         }
     }
 
-    override fun onBlockClicked(block: UserBlockDatesItem) {
-        //TODO: replace this with fucking real block id
-        showConfirmDialog(7)
+    override fun onBlockClicked(block: UserBlockDate) {
+        showConfirmDialog(block.id!!)
         mBlockDialog.dismiss()
     }
 
@@ -170,13 +166,13 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
                 })
     }
 
-    private fun handleReviewList(reviews: List<ReviewsItem?>?) {
-        rv_reviews.adapter = BearReviewAdapter(this, reviews as List<ReviewsItem>)
+    private fun handleReviewList(reviews: List<Review?>?) {
+        rv_reviews.adapter = BearReviewAdapter(this, reviews as List<Review>)
     }
 
     private fun fetchBearBlocksToday() {
         val today = DateUtils.todayInMillisecs()
-        var list: List<UserBlockDatesItem>? = null
+        var list: List<UserBlockDate>? = null
         mViewModel.fetchBearBlocksByDate(SessionAttrs.token, mBear.id!!, today,
                 SessionAttrs.currentUser.id!!)
                 .observe(this, Observer { result ->
@@ -186,13 +182,13 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
                                     it?.status == BlockStatus.FREE.name
                                 }
                                 .sortedWith(compareBy({ it?.block?.hourStart }))
-                                .toList() as List<UserBlockDatesItem>
+                                .toList() as List<UserBlockDate>
                     }
                     showBlocksDialog(list)
                 })
     }
 
-    private fun showBlocksDialog(userBlockDates: List<UserBlockDatesItem>?) {
+    private fun showBlocksDialog(userBlockDates: List<UserBlockDate>?) {
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_blocks, null)
         if (userBlockDates != null) {
             setUpBlockRecyclerView(view, userBlockDates)
@@ -202,7 +198,7 @@ class BearDetailActivity : AppCompatActivity(), View.OnClickListener, OnBlockCli
                 .show()
     }
 
-    private fun setUpBlockRecyclerView(view: View, userBlockDates: List<UserBlockDatesItem>) {
+    private fun setUpBlockRecyclerView(view: View, userBlockDates: List<UserBlockDate>) {
         val rvBlocks: RecyclerView = view.find(R.id.rv_blocks)
         view.find<TextView>(R.id.txt_no_block).visibility = View.GONE
         with(rvBlocks) {

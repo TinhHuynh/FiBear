@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_item_bear"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/white_card_view_background"
     android:foreground="?android:attr/selectableItemBackground"
     android:elevation="@dimen/cardview_default_elevation"

@@ -1,7 +1,6 @@
 package com.fibear.android.fibear.view.bearDetail.adapters
 
 import android.annotation.SuppressLint
-import android.content.ClipDescription
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.fibear.android.fibear.R
-import com.fibear.android.fibear.data.model.bear.block.UserBlockDatesItem
+import com.fibear.android.fibear.data.model.UserBlockDate
 import org.jetbrains.anko.find
 
 
@@ -19,7 +18,7 @@ import org.jetbrains.anko.find
  */
 
 class BearBlockAdapter(private val context: Context,
-                       private val blocks: List<UserBlockDatesItem>,
+                       private val blocks: List<UserBlockDate>,
                        private val listener: OnBlockClickedListener)
     : RecyclerView.Adapter<BearBlockAdapter.BearBlockViewHolder>() {
 
@@ -59,7 +58,7 @@ class BearBlockAdapter(private val context: Context,
         }
 
         @SuppressLint("SetTextI18n")
-        fun bindView(block: UserBlockDatesItem) {
+        fun bindView(block: UserBlockDate) {
             with(block) {
                 txtBlockTitle.text = title()
                 txtBlockPrice.text = "$price VND"
@@ -74,5 +73,5 @@ class BearBlockAdapter(private val context: Context,
 }
 
 interface OnBlockClickedListener {
-    fun onBlockClicked(block: UserBlockDatesItem)
+    fun onBlockClicked(block: UserBlockDate)
 }
