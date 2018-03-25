@@ -21,7 +21,7 @@ import org.jetbrains.anko.find
 class BearListAdapter(private val context: Context, var bearList: List<User>, private val listener: OnBearItemClickedListener) : RecyclerView.Adapter<BearListAdapter.BearViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BearViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_bear_list, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_bear_list, parent, false)
         return BearViewHolder(view)
     }
 

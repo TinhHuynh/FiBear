@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_light_white"
+
+    android:orientation="vertical"
+    android:padding="@dimen/material_layout_keylines_screen_edge_margin"
+    tools:context="com.fibear.android.fibear.view.forBear.registerBlocks.RegisterBlocksActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/title_select_block"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/material_typography_title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/text_select_block"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_register_blocks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:visibility="visible"
+            tools:listitem="@layout/item_register_block"/>
+
+        <Button
+            android:id="@+id/btn_register_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/primary_button_background"
+            android:padding="@dimen/material_component_button_text_left_and_right_padding"
+            android:text="@string/action_register_block"
+            android:textColor="@color/material_light_white"/>
+    </LinearLayout>
+
+
+</ScrollView>

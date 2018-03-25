@@ -5,23 +5,22 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.fibear.android.fibear.data.model.ApiPostResponse
 import com.fibear.android.fibear.data.model.User
+import com.fibear.android.fibear.data.model.bear.registerBlock.RegisterBlocksResult
+import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
 import com.fibear.android.fibear.data.model.bear.detail.BearDetailResult
 import com.fibear.android.fibear.data.model.bear.list.BearListResult
-import com.fibear.android.fibear.data.model.bear.block.BearBlocksResult
-import com.fibear.android.fibear.data.model.bear.block.BlockStatus
 import com.fibear.android.fibear.data.model.login.LoginResult
 import com.fibear.android.fibear.data.model.order.OrderRequestBody
-import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import org.json.JSONObject
 
 
 /**
  * Created by TINH HUYNH on 3/17/2018.
  */
-class NetworkDataSource(val mFiBearApiClient: FiBearService) {
+class NetworkDataSource(private val mFiBearApiClient: FiBearService) {
 
     companion object {
         private val TAG = "NetworkDataSource"
@@ -50,7 +49,6 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
 
                     override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
                         with(response) {
-                            call.request().url()
                             if (isSuccessful) {
                                 pendingResult.postValue(response.body())
                             } else {
@@ -108,7 +106,7 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
 
     fun fetchBearBlocksByDate(token: String, bearId: Int, date: Long, userId: Int): LiveData<BearBlocksResult> {
         val pendingResult = MutableLiveData<BearBlocksResult>()
-        mFiBearApiClient.fetchBearBlockByTime(token, bearId, date, userId)
+        mFiBearApiClient.fetchBearBlockByDate(token, bearId, date, userId)
                 .enqueue(object : Callback<BearBlocksResult> {
                     override fun onFailure(call: Call<BearBlocksResult>, t: Throwable?) {
                         Log.e(TAG, t?.message)
@@ -119,6 +117,24 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
                             if (isSuccessful) {
                                 pendingResult.postValue(response.body())
                             }
+                        }
+                    }
+                })
+        return pendingResult
+    }
+
+    fun fetchRegisterBlocksByDate(token: String, bearId: Int, date: Long): LiveData<RegisterBlocksResult> {
+        val pendingResult = MutableLiveData<RegisterBlocksResult>()
+        mFiBearApiClient.fetchRegisterBlocksByDate(token, bearId, date)
+                .enqueue(object : Callback<RegisterBlocksResult> {
+                    override fun onFailure(call: Call<RegisterBlocksResult>, t: Throwable?) {
+                        Log.e(TAG, t?.message)
+                    }
+
+                    override fun onResponse(call: Call<RegisterBlocksResult>, response: Response<RegisterBlocksResult>) {
+                        with(response) {
+                            if (isSuccessful)
+                                pendingResult.postValue(response.body())
                         }
                     }
                 })
@@ -141,5 +157,7 @@ class NetworkDataSource(val mFiBearApiClient: FiBearService) {
                 })
         return pendingResult
     }
+
+
 }
 

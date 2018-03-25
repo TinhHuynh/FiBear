@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import com.fibear.android.fibear.R
-import com.fibear.android.fibear.data.model.bear.review.ReviewsItem
+import com.fibear.android.fibear.data.model.bear.review.Review
 import org.jetbrains.anko.find
 
 /**
  * Created by TINH HUYNH on 3/23/2018.
  */
-class BearReviewAdapter(private val context: Context, private val reviewList: List<ReviewsItem>) : RecyclerView.Adapter<BearReviewAdapter.BearReviewViewHolder>() {
+class BearReviewAdapter(private val context: Context, private val reviewList: List<Review>) : RecyclerView.Adapter<BearReviewAdapter.BearReviewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BearReviewViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_review, parent, false)
@@ -41,7 +41,7 @@ class BearReviewAdapter(private val context: Context, private val reviewList: Li
             }
         }
 
-        fun bindView(reviewItem: ReviewsItem){
+        fun bindView(reviewItem: Review){
             with(reviewItem){
                 txtReviewer.text = userReviewed?.username
                 ratingBar.rating = rate!!.toFloat()

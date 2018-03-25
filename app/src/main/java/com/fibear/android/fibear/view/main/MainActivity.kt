@@ -7,20 +7,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.fibear.android.fibear.R
 import com.fibear.android.fibear.SessionAttrs
+import com.fibear.android.fibear.data.model.RoleId
 import com.fibear.android.fibear.data.model.User
 import com.fibear.android.fibear.utils.InjectionUtils
-import com.fibear.android.fibear.view.bearDetail.BearDetailActivity
 import com.fibear.android.fibear.view.SpaceItemdDecorator
+import com.fibear.android.fibear.view.bearDetail.BearDetailActivity
+import com.fibear.android.fibear.view.forBear.registerBlocks.RegisterBlocksActivity
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initSwipeRefreshLayout() {
-        swiperefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+        swiperefresh.setOnRefreshListener({
             fetchListBear()
         })
 
@@ -68,20 +68,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.nav_register_block -> goToRegisterBlocksScreen()
 
         }
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -107,6 +96,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
         updateNavHeader()
+        setUpNavMenuItems()
+    }
+
+    private fun setUpNavMenuItems() {
+        if (SessionAttrs.currentUser.roleId == RoleId.BEAR.getId()) {
+            with(nav_view.menu) {
+                findItem(R.id.nav_register_block).isVisible = true
+            }
+        }
     }
 
     private fun updateNavHeader() {
@@ -162,11 +160,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mBearListAdapter?.bearList = bears
                 mBearListAdapter?.notifyDataSetChanged()
             }
-            if(swiperefresh.isRefreshing){
+            if (swiperefresh.isRefreshing) {
                 swiperefresh.isRefreshing = false
             }
         }
     }
 
+    private fun goToRegisterBlocksScreen() {
+        startActivity(RegisterBlocksActivity.getIntent(this))
+    }
 
 }
