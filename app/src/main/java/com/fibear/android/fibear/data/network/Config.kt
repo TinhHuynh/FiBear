@@ -6,6 +6,6 @@ package com.fibear.android.fibear.data.network
 
 class Config {
     companion object {
-        val BASE_URL = "http://35.229.53.76/"
+        val BASE_URL = "http://ec2-54-209-157-45.compute-1.amazonaws.com:8080"
     }
 }
